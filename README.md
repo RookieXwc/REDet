@@ -70,3 +70,41 @@ pip install scikit-image
 ```
 
 ### 4. Run the code
+
+We provide training scripts `experiments/test.sh` as:
+
+```shell
+#!/bin/bash
+
+ROOT=../../
+T=`date +%m%d%H%M`
+export ROOT=$ROOT
+cfg=configs/Table1_r50_REDet.yaml
+export PYTHONPATH=$ROOT:$PYTHONPATH
+python -m up train \
+  --nm=1 \
+  --ng=1 \
+  --launch=pytorch \
+  --config=$cfg \
+  2>&1 | tee experiments/train_log/log.train.$T.$(basename $cfg) 
+```
+
+We provide testing scripts  `experiments/test.sh` as:
+
+```shell
+#!/bin/bash
+
+ROOT=../../
+T=`date +%m%d%H%M`
+export ROOT=$ROOT
+cfg=configs/Table1_r50_REDet.yaml
+export PYTHONPATH=$ROOT:$PYTHONPATH
+python -m up train \
+  -e \
+  --nm=1 \
+  --ng=1 \
+  --launch=pytorch \
+  --config=$cfg \
+  2>&1 | tee experiments/test_log/log.test.$T.$(basename $cfg) 
+```
+
